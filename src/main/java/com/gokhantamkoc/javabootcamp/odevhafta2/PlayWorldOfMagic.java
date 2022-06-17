@@ -4,6 +4,10 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import com.jayway.jsonpath.internal.function.numeric.Max;
+import com.jayway.jsonpath.internal.function.text.Length;
+import java.util.Arrays;
+
 @SpringBootApplication
 public class PlayWorldOfMagic implements CommandLineRunner {
 	public static void main(String[] args) {
@@ -42,8 +46,34 @@ public class PlayWorldOfMagic implements CommandLineRunner {
 			) {
 		
 		int spellsUsed = 0;
+
 		// ______ BASLANGIC _______ Kodunuz buradan baslamali
-		
+ 		// PlayWorldOfMagic ObjMaxNum = new PlayWorldOfMagic();
+
+		// Ataklar arraya atandı
+		float[] spellDamageRepository = createSpellDamageRepository();
+		Arrays.sort(spellDamageRepository);
+
+		// Canavarların güçleri diziye atandı
+		float[] bossHPRepository = createBossHPRepository();
+
+		// Yapılacak en güçlü atak seçildi
+		float spellDamageMax = spellDamageRepository[spellDamageRepository.length-1];
+
+		for (int x = 0; x < bossHPRepository.length; x++){
+			float bossHP = bossHPRepository[x];
+
+			float result = 0;
+
+			while(true){
+				result = bossHP - spellDamageMax;
+
+				if (result <= 0)
+					break;
+
+				spellsUsed++;
+			}
+		}		
 		// ______ SON _______ Kodunuz burada bitmeli
 		/* NOT: ______ BASLANGIC _______ ve ______ SON _______ 
 		 * arasina istediginiz kadar sayida satir ekleyebilirsiniz.
